@@ -1,0 +1,47 @@
+
+<tab-panel>
+    <div data-tabname="one">Content of Tab One</div>
+    <div data-tabname="two">Content of Tab Two</div>
+    <div data-tabname="three">Content of Tab Three</div>
+  </tab-panel>
+  
+  <script>
+    function asTabs(node) {
+      const tabs = Array.from(node.children); // Get the child elements (tabs)
+      const buttonContainer = document.createElement('div'); // Create button container
+  
+      // Create a button for each tab and add event listeners
+      const tabButtons = tabs.map((tab, index) => {
+        const button = document.createElement('button');
+        button.textContent = tab.getAttribute('data-tabname'); // Get tab name from data-tabname attribute
+        buttonContainer.appendChild(button);
+  
+        // Set up click event for the button
+        button.addEventListener('click', () => selectTab(index));
+  
+        return button;
+      });
+  
+      // Insert the button container at the top of the node
+      node.insertBefore(buttonContainer, node.firstChild);
+  
+      // Function to select a tab
+      function selectTab(selectedIndex) {
+        tabs.forEach((tab, index) => {
+          if (index === selectedIndex) {
+            tab.style.display = ''; // Show the selected tab
+            tabButtons[index].classList.add('active'); // Highlight the active button
+          } else {
+            tab.style.display = 'none'; // Hide other tabs
+            tabButtons[index].classList.remove('active'); // Remove highlight from inactive buttons
+          }
+        });
+      }
+  
+      // Initialize with the first tab selected
+      selectTab(0);
+    }
+  
+    asTabs(document.querySelector('tab-panel')); // Call the function on the tab-panel element
+  </script>
+  

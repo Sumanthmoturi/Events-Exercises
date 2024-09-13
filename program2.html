@@ -1,0 +1,41 @@
+<!--Mouse Trial Program-->
+
+<style>
+    .trail {
+      position: absolute;
+      height: 6px;
+      width: 6px;
+      border-radius: 50%;
+      background: teal;
+    }
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden; 
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  const trailLength = 20; // Number of trail elements
+  const trailElements = [];
+  let currentIndex = 0;
+
+  // Create and append trail elements
+  for (let i = 0; i < trailLength; i++) {
+    const trail = document.createElement('div');
+    trail.className = 'trail';
+    document.body.appendChild(trail);
+    trailElements.push(trail);
+  }
+
+  // Mousemove event handler
+  document.addEventListener('mousemove', event => {
+    const trail = trailElements[currentIndex]; 
+    trail.style.left = (event.pageX - 3) + 'px'; 
+    trail.style.top = (event.pageY - 3) + 'px';  
+      // Cycle through elements
+    currentIndex = (currentIndex + 1) % trailLength;
+  });
+</script>
